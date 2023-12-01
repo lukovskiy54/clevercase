@@ -102,9 +102,11 @@
                         <div class="input-container-color" >
                             {{ form.color_save }}
                         </div>
-                        <div class="container" >
-                            <button class="submit-btn" value="{{ id }}" name="save">Save
-                                changes</button>
+                        <div class="container"  >
+                            <button class="submit-btn" value="{{ id }}" name="save">Save changes</button>
+                            {% if is_editing %}
+                            <button class="submit-btn" style="margin-left: 181px;" value="{{ id }}" name="delete">Delete</button>
+                            {% endif %}
                         </div>
                         <button formnovalidate  class="close-button">
                             <img src="../static/img/home/close.svg" alt="Close"

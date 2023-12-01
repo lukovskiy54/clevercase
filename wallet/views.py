@@ -11,6 +11,7 @@ def home_page(request):
     form = CategoryCreateForm()
     categories = Category.objects.filter(user=request.user)
     id = 0
+    is_editing = False
     if request.method == 'POST':
         if 'save' in request.POST:
             pk = request.POST.get('save')
@@ -20,7 +21,7 @@ def home_page(request):
             else:
                 category = Category.objects.get(id=pk)
                 form = CategoryCreateForm(request.POST, instance=category, request=request,  is_editing=True)  
-                form.is_editing = True
+                is_editing = True
             if form.is_valid():
                     category = form.save(commit=False)
                     category.user = request.user  
@@ -34,6 +35,7 @@ def home_page(request):
             category = Category.objects.get(id=pk)
             category.delete()
         elif 'edit' in request.POST:
+            is_editing = True
             print("hay")
             pk = request.POST.get('edit')
             category = Category.objects.get(id=pk)
@@ -44,6 +46,7 @@ def home_page(request):
         'categories': categories,
         'form': form,
         'id': id,
+        'is_editing': is_editing,
         
     }
     return render(request, 'homepage.html', context)

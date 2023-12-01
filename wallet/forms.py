@@ -19,7 +19,7 @@ class CategoryCreateForm(forms.ModelForm):
             'date_of_rent': forms.DateInput(attrs={'type': 'date','id':'start-date', 'class': 'input-text'}),
             'due_date': forms.DateInput(attrs={'type': 'date','id':'end-date', 'class': 'input-text'}),
             'currency': forms.Select(choices=CURRENCIES, attrs={'class': 'custom-dropdown', 'id':'currency'}),
-            'color_save': forms.TextInput(attrs={'type':"color", 'id':"bg-color", 'style':"width: 3px; height: 3px; border-radius: 360px"})
+            'color_save': forms.TextInput(attrs={'type':"color", 'id':"bg-color", 'style':"width: 100px; height: 50px; margin-top: 10px"})
         }
 
     def clean_the_limit(self):
