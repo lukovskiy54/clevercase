@@ -1,0 +1,329 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #D5DDD9;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+}
+header {
+    background-color: #054E2B;
+    color: #f4f4f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 9%;
+    min-height: 72px;
+}
+
+.header-text {
+    width: 310px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 36px;
+    color: #E8E8E8;
+}
+.button {
+    padding: 20px 13px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    outline: none;
+}
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 0;
+    height: 91%;
+    min-height: 100vh;
+    width: 100%;
+}
+section {
+    margin: 0;
+    padding: 0;
+    flex: 0 0 calc(50% - 1.5px);
+    width: calc(50% - 1.5px);
+    max-width: calc(50% - 1.5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+#rofl {
+    background-color: #054E2B;
+    width: 3px;
+    margin: 0;
+    padding: 0;
+}
+.button_debt {
+    background: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+}
+.debts-block{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.debt-container-header {
+    padding: 0;
+    margin: 10px 0 10px 0;
+    position: relative;
+}
+.debt-container {
+    color: #FFF;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    box-sizing: border-box;
+    width: 293px;
+    height: 259px;
+    background: rgba(121, 44, 219, 0.40);
+    box-shadow: -1px 8px 24px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 36px;
+    border: none;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: normal;
+    padding: 0px;
+    position: relative;
+    align-items: flex-start;
+    margin: 0 21px 49px 21px;
+}
+.debt-info-block {
+    display: flex;
+    flex-direction: column;
+    font-size: 80%;
+    margin: 0;
+}
+
+.edit-my-debt-button, .edit-others-debt-button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 5px;
+}
+.close-debt-button {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 17%;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background: rgba(121, 44, 219, 0.40);
+    box-shadow: -1px 8px 24px 6px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12px);
+    border: none;
+    color: #FFF;
+    font-style: normal;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: normal;
+}
+.debt-container hr {
+    border: none;
+    border-top: 2px solid white;
+    width: 248px;
+    margin: 0 auto 5px auto;
+}
+.debtor-name {
+    color: #FFF;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+}
+.add_debt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 48px 0 49px 0;
+}
+.add_debt span {
+    color: #054E2B;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-right: 15px;
+}
+
+#add-others-debt-form, #add-my-debt-form {
+    display: none; /* was block */
+    border-radius: 25px;
+    background: #487C63;
+    box-shadow: -1px 8px 24px 6px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12px);
+    padding-top: 42px;
+    padding-right: 36px;
+    padding-left: 36px;
+    padding-bottom: 33px;
+    width: calc(45% - 20px);
+    height: 50%;
+    z-index: 9999;
+}
+#add-others-debt-form {
+    position: absolute;
+    top: 100px;
+    right: 10px;
+}
+#add-my-debt-form {
+    position: absolute;
+    top: 100px;
+    left: 10px;
+}
+
+#others-debt-form-button, #my-debt-form-button {
+    cursor: pointer;
+    color: #044B27;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    width: 198px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 40px;
+    border: 2px solid #FFF;
+    background: rgba(255, 255, 255, 0.30);
+    box-shadow: 0px 5px 18px -2px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(2px);
+}
+.debt-form-field {
+    margin: 0 0 26px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.debt-form-field span {
+    color: #E8E8E8;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.debt-form-field input {
+    width: 258px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #D2DAD6;
+    border: none;
+    color: #054E2B;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.error-list {
+    margin-bottom: 26px;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.debt-amount-input {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.debt-amount-input input {
+    margin: 0 5px 0 0;
+    width: 151px;
+}
+
+.debt-amount-input select {
+    color: #054E2B;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-align: center;
+    border-radius: 10px;
+    background: #D2DAD6;
+    margin: 0 0 0 5px;
+    width: 97px;
+}
+
+#others-debts-closed-debts-block .close-debt-button,
+#my-debts-closed-debts-block .close-debt-button
+{
+    cursor: not-allowed;
+}
+
+#others-debts-closed-debts-block,
+#my-debts-closed-debts-block {
+    display: none;
+}
+
+.close-form-button{
+    background: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    top: 13px;
+    right: 13px;
+}
+
+.closed-debts-header {
+    display: flex;
+}
+
+.closed-debts-header button {
+    cursor: pointer;
+    margin: 0 0 0 10px;
+    padding: 0 5px 0 5px;
+    border-radius: 40px;
+    border: 2px solid #FFF;
+    background: rgba(255, 255, 255, 0.30);
+    box-shadow: 0px 5px 18px -2px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(2px);
+    color: #044B27;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}

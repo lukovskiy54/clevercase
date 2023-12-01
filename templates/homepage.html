@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../static/img/ico.png" type="image/x-icon">
+    <link rel="stylesheet" href="../static/css/homepage.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Home</title>
+</head>
+
+<body>
+    <audio id="mySound" src="../static/css/sound1.mp3"></audio>
+    <header>
+        <div class="burger">
+            <button class="button" onclick="playSound()">
+                <img src="../static/img/home/burger-menu.svg" alt="Menu Icon" />
+            </button>
+        </div>
+        <div class="header-text">
+            <img src="../static/img/home/vector-1.svg" alt="Clevercase Logo" style="vertical-align: middle;">
+            Clevercase
+        </div>
+        <div>
+            <div>
+                <button class="button" onclick="playSound()">
+                    <img src="../static/img/home/notifications.svg" alt="Bell Icon" style="vertical-align: middle;">
+                </button>
+                <button class="button" onclick="playSound()">
+                    <img src="../static/img/home/profile.svg" alt="Search Icon" style="vertical-align: middle;">
+                </button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <form method="post" action="{% url 'home' %}">
+            <div id="main-content">
+                <div class="add_category">
+                    <div class="body_text">
+                        Your categories
+                    </div>
+                    <button formnovalidate class="button-cat" type="button"> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M38.171 7.08355C46.4091 16.0145 45.8476 29.9328 36.9167 38.171C27.9858 46.4091 14.0675 45.8476 5.82927 36.9167C-2.40892 27.9858 -1.84736 14.0675 7.08355 5.82927C16.0145 -2.40892 29.9328 -1.84736 38.171 7.08355ZM7.58284 22.011C7.58284 21.1826 8.25441 20.511 9.08284 20.511H20.7834V8.8116C20.7834 7.98317 21.455 7.3116 22.2834 7.3116C23.1119 7.3116 23.7834 7.98317 23.7834 8.8116V20.511H35.4828C36.3113 20.511 36.9828 21.1826 36.9828 22.011C36.9828 22.8394 36.3113 23.511 35.4828 23.511H23.7834V35.2116C23.7834 36.04 23.1119 36.7116 22.2834 36.7116C21.455 36.7116 20.7834 36.04 20.7834 35.2116V23.511H9.08284C8.25441 23.511 7.58284 22.8394 7.58284 22.011Z"
+                                fill="#054E2B" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="content-wrapper">
+
+                    {% for category in categories %}
+                    <div class="category-card" data-bgcolor="{{ category.color_save }}" style="background-color: {{ category.color_save }}">
+                        <div class="category-text-content">
+                            <div class="category-header">
+                                <span class="category-title" data-bgcolor="{{ category.color_save }}">{{ category.cat_name }}</span>
+                            </div>
+                            <div class="category-content" data-bgcolor="{{ category.color_save }}">
+                                  <div class="category-limit">
+                                    <span class="limit-label">Limit:</span>
+                                    <span class="limit-value">{{ category.the_limit }} {{ category.currency }}</span>
+                                  </div>
+                                  <div class="category-limit">
+                                    <span class="limit-label">Expended:</span>
+                                    <span class="limit-value">{{ category.currently_spent }} {{ category.currency }}</span>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="right-buttons">
+                            <button formnovalidate class="category-action" ><img data-bgcolor="{{ category.color_save }}" class="category-action-image" src="../static/img/home/plus-circle.svg"></button>
+                            <button formnovalidate class="category-edit" name="edit"  value="{{ category.id }}" ><img data-bgcolor="{{ category.color_save }}" class="category-edit-image" src="../static/img/home/pencil.svg"></button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="content-wrapper" >
+                    <div class="form-container" id="colorful-object">
+                        {% csrf_token %}
+                        <div class="input-container">
+                            <div class="text_box">Name of category</div>
+                            {{ form.cat_name }}
+                        </div>
+
+                        <div class="input-container-date" class="input-text">
+                            <div class="text_box">Period of tracking</div>
+                            {{ form.date_of_rent }} – {{ form.due_date }} {{ form.due_date.errors.as_ul }}
+                            <div class="text_box">The limit</div>
+                            {{ form.the_limit }}
+                            {{ form.currency }}
+                            {{ form.the_limit.errors.as_ul }}
+                        </div>
+
+                        <div class="text_box">Currently spent</div>
+                        <div class="input-container-date" class="input-text" id="spent_text">
+                            {{ form.currently_spent }} {{ form.currently_spent.errors.as_ul }}
+                        </div>
+
+                        <div class="text_box" data-error-count="{{ form.errors|length }}" id="error-count">Background color</div>
+                        <div class="input-container-color" >
+                            {{ form.color_save }}
+                        </div>
+                        <div class="container" >
+                            <button class="submit-btn" value="{{ id }}" name="save">Save
+                                changes</button>
+                        </div>
+                        <button formnovalidate  class="close-button">
+                            <img src="../static/img/home/close.svg" alt="Close"
+                                style="vertical-align: middle; position: absolute;right: 15px;top: 15px;">
+                        </button>
+
+                    </div>
+                </div>
+        </form>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.category-card').forEach(card => {
+                const bgColor = card.getAttribute('data-bgcolor');
+                const textColor = getContrastYIQ(bgColor);
+                card.style.color = textColor;
+            });
+            document.querySelectorAll('.category-title').forEach(card => {
+                const bgColor = card.getAttribute('data-bgcolor');
+                const textColor = getContrastYIQ(bgColor);
+                card.style.color = textColor;
+            });
+            document.querySelectorAll('.category-content').forEach(card => {
+                const bgColor = card.getAttribute('data-bgcolor');
+                const textColor = getContrastYIQ(bgColor);
+                card.style.setProperty('--border-top-color', textColor);
+            });
+            document.querySelectorAll('.category-action-image').forEach(card => {
+                if (card.hasAttribute('data-bgcolor')) {
+                    const bgColor = card.getAttribute('data-bgcolor');
+                    const textColor = getContrastYIQ(bgColor);
+                    if (textColor == 'black') {
+                        card.src = "../static/img/home/black-plus.svg";
+                    }
+                }
+            });
+            document.querySelectorAll('.category-edit-image').forEach(card => {
+                if (card.hasAttribute('data-bgcolor')) {
+                    const bgColor = card.getAttribute('data-bgcolor');
+                    const textColor = getContrastYIQ(bgColor);
+                    if (textColor == 'black') {
+                        card.src = "../static/img/home/black-pencil.svg";
+                    }
+                }
+            });
+            var div = document.getElementById('colorful-object');
+            var displayState = localStorage.getItem('displayState');
+            var errorCountElement = document.getElementById('error-count');
+            var errorCount = errorCountElement.getAttribute('data-error-count');
+            console.log(errorCount)
+            if(errorCount == 0) {
+                if (displayState) {
+                    div.style.display = displayState;
+                }
+            }else{
+                div.style.display = 'block';
+                displayState = 'block';
+            }
+        });
+        document.addEventListener('DOMContentLoaded', (event) => {
+            function toggleVisibility() {
+                var div = document.getElementById('colorful-object');
+                var errorCountElement = document.getElementById('error-count');
+                var errorCount = errorCountElement.getAttribute('data-error-count');
+                console.log(errorCount)
+                if(errorCount == 0) {
+                    console.log("mm")
+                    if (div.style.display === 'none' || div.style.display === '') {
+                        div.style.display = 'block';
+                        localStorage.setItem('displayState', 'block');
+                    } else {
+                        div.style.display = 'none';
+                        localStorage.setItem('displayState', 'none');
+                    }
+                }
+            }
+            document.querySelectorAll('.category-action, .category-edit, .button-cat, .close-button, .submit-btn').forEach(button => {
+                button.addEventListener('click', toggleVisibility);
+            });
+        });
+
+        function getContrastYIQ(hexcolor){
+            hexcolor = hexcolor.replace("#", "");
+            var r = parseInt(hexcolor.substr(0,2),16);
+            var g = parseInt(hexcolor.substr(2,2),16);
+            var b = parseInt(hexcolor.substr(4,2),16);
+            var yiq = ((r*299)+(g*587)+(b*114))/1000;
+            return (yiq >= 180) ? 'black' : 'white';
+        }
+
+        
+    </script>
+    <script src="../static/scripts/create_cat.js"></script>
+    <script src="../static/scripts/script.js"></script>
+</body>
+
+</html>
