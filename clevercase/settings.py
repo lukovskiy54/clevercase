@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-u$1u8epay2kp5785$52^@)k02(+=@e3-hkha-h232t2y36w=*d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['clevercase-jiam.onrender.com',  '127.0.0.1', 'ec2-35-173-205-13.compute-1.amazonaws.com']
+ALLOWED_HOSTS = ['clevercase-jiam.onrender.com',  '127.0.0.1', 'ec2-35-173-205-13.compute-1.amazonaws.com', 'ec2-52-207-11-194.compute-1.amazonaws.com']
 
-CSRF_TRUSTED_ORIGINS = ['https://clevercase-jiam.onrender.com', 'http://ec2-35-173-205-13.compute-1.amazonaws.com']
+CSRF_TRUSTED_ORIGINS = ['https://clevercase-jiam.onrender.com', 'http://ec2-35-173-205-13.compute-1.amazonaws.com', 'http://ec2-52-207-11-194.compute-1.amazonaws.com']
 # Application definition
 
 INSTALLED_APPS = [
