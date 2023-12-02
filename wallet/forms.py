@@ -1,5 +1,5 @@
 from django import forms
-from .models import Category, MyDebts, OthersDebts, Currency
+from .models import Category, MyDebts, OthersDebts, Currency, Spendings
 from django.contrib.auth.models import User
 from django.utils import timezone
 import datetime
@@ -127,3 +127,51 @@ class OthersDebtsCreateForm(forms.ModelForm):
         cleaned_data['user'] = self.request.user
         return cleaned_data
 
+
+class AddSpendings(forms.ModelForm):
+    class Meta:
+        model = Spendings
+        fields = ['amount', 'date']  # categoryId is not included here
+        widgets = {
+            'amount': forms.NumberInput(attrs={'class': 'input-text', 'type': "text", 'id': "amount", 'min': "1"}),
+            'date': forms.DateInput(attrs={'type': 'date','id':'adding_date', 'class': 'input-text'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.category_id = kwargs.pop('category_id', None)
+        self.request = kwargs.pop('request', None)  # Handling category_id separately
+        super(AddSpendings, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super(AddSpendings, self).save(commit=False)
+        if self.category_id:
+            # Set the categoryId for the instance here
+            instance.categoryId = Category.objects.get(id=self.category_id)
+        if commit:
+            instance.save()
+        return instance
+    def clean_amount(self):
+        amount = self.cleaned_data.get('amount')
+        if amount <= 0:
+            raise ValidationError('Amount must be greater than zero.')
+        # Add any other custom validation for amount here
+        return amount
+
+    def clean_date(self):
+        date = self.cleaned_data.get('date')
+        if date > datetime.date.today():
+            raise ValidationError('Date cannot be in the future.')
+        # Add any other custom validation for date here
+        return date
+
+
+
+    def clean(self):
+        cleaned_data = super(AddSpendings, self).clean()
+        if self.request:
+            cleaned_data['user'] = self.request.user
+        return cleaned_data
+        
+   
+    
+    

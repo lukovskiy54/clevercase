@@ -35,8 +35,9 @@
         </div>
     </header>
     <main>
-        <form method="post" action="{% url 'home' %}">
+        
             <div id="main-content">
+                <form method="post" action="{% url 'home' %}">
                 <div class="add_category">
                     <div class="body_text">
                         Your categories
@@ -69,7 +70,7 @@
                             </div>
                         </div>
                         <div class="right-buttons">
-                            <button formnovalidate class="category-action" ><img data-bgcolor="{{ category.color_save }}" class="category-action-image" src="../static/img/home/plus-circle.svg"></button>
+                            <button formnovalidate class="category-action" name="add" value="{{ category.id }}"><img data-bgcolor="{{ category.color_save }}" class="category-action-image" src="../static/img/home/plus-circle.svg"></button>
                             <button formnovalidate class="category-edit" name="edit"  value="{{ category.id }}" ><img data-bgcolor="{{ category.color_save }}" class="category-edit-image" src="../static/img/home/pencil.svg"></button>
                         </div>
                     </div>
@@ -112,11 +113,38 @@
                             <img src="../static/img/home/close.svg" alt="Close"
                                 style="vertical-align: middle; position: absolute;right: 15px;top: 15px;">
                         </button>
-
                     </div>
                 </div>
-        </form>
+                
+        
+            </form>
+            </div>
+            <form method="post" action="{% url 'home' %}">
+        <div class="add-form-container" id="add-spendings">
+            {% csrf_token %}
+            <div class="input-container text_box " style="width: 475px; margin-left: 90px; margin-bottom: 15px;">
+               Add expenses
+            </div>
+            <div class="input-container-date-add" class="input-text" style="margin-top: 70px; ">
+                <div class="text_box" style="margin-bottom: 20px; margin-top: 10px; width: 50px;" >Spent</div>
+                {{ addSpendings.amount }}
+                
+            </div>
+            <div class="input-container-date-add" class="input-text">
+                <div class="text_box" style="margin-top: 15px; width: 50px;">Date</div>
+                {{ addSpendings.date}}
+            </div>
+            
+            <div class="container" style="justify-content:start;margin-left: 191px;  padding: 0; margin-top: 0px;">
+                <button class="submit-btn-add" style="height: 38px; width: 92px;" value="{{ id }}" name="save_add">Save</button>
+            </div>
+            <button formnovalidate  class="close-button-add" type="button">
+                <img src="../static/img/home/close.svg" alt="Close" 
+                    style="vertical-align: middle; position: absolute;right: 15px;top: 15px;">
+            </button>
         </div>
+    </form>
+   
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -154,7 +182,9 @@
                 }
             });
             var div = document.getElementById('colorful-object');
+            var div2 = document.getElementById('add-spendings');
             var displayState = localStorage.getItem('displayState');
+            var adddisplayState = localStorage.getItem('adddisplayState');
             var errorCountElement = document.getElementById('error-count');
             var errorCount = errorCountElement.getAttribute('data-error-count');
             console.log(errorCount)
@@ -166,6 +196,19 @@
                 div.style.display = 'block';
                 displayState = 'block';
             }
+            if (adddisplayState) {
+                div2.style.display = adddisplayState
+            }else{
+                div2.style.display = 'block'
+                adddisplayState = 'block'
+            }
+            function hideAddForm() {
+                const addFormContainer = document.getElementById('add-spendings');
+                addFormContainer.style.display = 'none';
+                localStorage.setItem('adddisplayState', 'none');
+             }
+            const submitButtonAdd = document.querySelector('.submit-btn-add');
+            submitButtonAdd.addEventListener('click', hideAddForm);
         });
         document.addEventListener('DOMContentLoaded', (event) => {
             function toggleVisibility() {
@@ -184,7 +227,7 @@
                     }
                 }
             }
-            document.querySelectorAll('.category-action, .category-edit, .button-cat, .close-button, .submit-btn').forEach(button => {
+            document.querySelectorAll(' .category-edit, .button-cat, .close-button, .submit-btn').forEach(button => {
                 button.addEventListener('click', toggleVisibility);
             });
         });
@@ -199,6 +242,31 @@
         }
 
         
+    </script>
+    <script>
+       document.addEventListener('DOMContentLoaded', (event) => {
+    // Function to show the add-form-container
+    function showAddForm() {
+        const addFormContainer = document.getElementById('add-spendings');
+        addFormContainer.style.display = 'block';
+        localStorage.setItem('adddisplayState', 'block');
+    }
+
+    // Function to hide the add-form-container
+    function hideAddForm() {
+        const addFormContainer = document.getElementById('add-spendings');
+        addFormContainer.style.display = 'none';
+        localStorage.setItem('adddisplayState', 'none');
+    }
+
+    // Add click event listener to all category-action buttons
+    document.querySelectorAll('.category-action').forEach(button => {
+        button.addEventListener('click', showAddForm);
+    });
+
+    // Add click event listener to the close button
+    document.querySelector('.close-button-add').addEventListener('click', hideAddForm);
+});
     </script>
     <script src="../static/scripts/create_cat.js"></script>
     <script src="../static/scripts/script.js"></script>

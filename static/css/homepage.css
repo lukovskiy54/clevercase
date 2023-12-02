@@ -43,6 +43,18 @@ body {
         .close-button:hover {
             opacity: 0.8;
         }
+        .close-button-add {
+            padding: 20px 13px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin: 0;
+            outline: none;
+            
+        }
+        .close-button-add:hover {
+            opacity: 0.8;
+        }
         .burger {
             width: 154px;
         }
@@ -328,6 +340,21 @@ body {
             backdrop-filter: blur(24px) brightness(100%);
             -webkit-backdrop-filter: blur(24px) brightness(100%);
         }
+        .add-form-container{
+            z-index: 1000;
+            display: none;
+            position: absolute;
+            left: 50%;
+            top: 60%;
+            transform: translate(-50%, -50%);
+            width: 475px;
+            height: 309px;
+            background: #487C63;
+            border-radius: 36px;
+            box-shadow: -1px 8px 24px 6px #00000040;
+            backdrop-filter: blur(24px) brightness(100%);
+            -webkit-backdrop-filter: blur(24px) brightness(100%);
+        }
         .input-container {
             margin-left: 397px;
             margin-top: 50px;
@@ -361,7 +388,18 @@ body {
             margin-left: 397px;
             margin-top: 9px;
         }
-
+        
+        .input-container-date-add {
+            margin-left: 177px;
+            margin-top: 9px;
+            
+        }
+        .input-container-date-add input {
+            width: 235px;
+            height: 37px;
+            border-radius: 17px;
+            background-color: #dddddd;
+        }
         .input-container-date input {
             width: 235px;
             height: 37px;
@@ -430,7 +468,29 @@ body {
             cursor: pointer;
 
         }
+        .submit-btn-add {
+            width: 226px;
+            height: 58px;
+            background: rgba(255, 255, 255, 0.30);
+            border-radius: 40px;
+            border: none;
+            color: #043d21;
+            border-top: 2px outset #ffffff; /* Adjust color and width as needed */
+            border-right: 2px solid #ffffff;
+            border-left: 2px outset #fff;
+            border-bottom: none;
+            box-shadow: 0 5px 18px -2px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(4px) brightness(100%);
+            -webkit-backdrop-filter: blur(4px) brightness(100%);
+            font-family: Montserrat, monospace;
+            font-weight: 520;
+            font-size: 25px;
+            cursor: pointer;
+        }
         .submit-btn:hover {
+            opacity: 0.8;
+        }
+        .submit-btn-add:hover {
             opacity: 0.8;
         }
         .custom-dropdown {

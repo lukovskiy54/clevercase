@@ -15,7 +15,7 @@ class Currency(models.TextChoices):
 class Category(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     cat_name = models.CharField(max_length=30)
-    the_limit = models.IntegerField(default=0)
+    the_limit = models.IntegerField()
     currently_spent = models.IntegerField(default=0)
     date_of_rent = models.DateField("Date of rent", default=timezone.now)
     currency = models.CharField(max_length=2, choices=Currency.choices, default=Currency.UAH)
@@ -46,3 +46,11 @@ class OthersDebts(models.Model):
     debt_repayment_date = models.DateTimeField(null=True, blank=True)
     debtor_name = models.CharField(max_length=30)
     is_closed = models.BooleanField(default=False)
+
+
+class Spendings(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    amount = models.IntegerField()
+    date= models.DateField("DD.MM.YYYY", default=timezone.now)
+    categoryId = models.IntegerField()
+    
