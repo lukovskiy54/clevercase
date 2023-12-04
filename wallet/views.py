@@ -24,8 +24,10 @@ def home_page(request):
                 form = CategoryCreateForm(request.POST, instance=category, request=request,  is_editing=True)  
                 is_editing = True
             if form.is_valid():
+
                     category = form.save(commit=False)
-                    category.user = request.user  
+                    category.user = request.user
+                    category.is_expended = False
                     category.save()
                     return redirect('home')
             else:
@@ -51,6 +53,7 @@ def home_page(request):
             id = pk
         elif 'save_add' in request.POST:
             addSpendings = AddSpendings(request.POST)
+            addSpendings.is_expended = False
             if addSpendings.is_valid():
                     print('valid')
                     pk = request.POST.get('save_add')
@@ -61,6 +64,8 @@ def home_page(request):
                     addings.save()
                     category = Category.objects.get(id=pk)
                     category.currently_spent += addings.amount
+                    if category.currently_spent >= category.the_limit:
+                         category.is_expended = True
                     category.save()
                     return redirect('home')
             else:

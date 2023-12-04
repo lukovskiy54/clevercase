@@ -64,8 +64,13 @@
                                     <span class="limit-value">{{ category.the_limit }} {{ category.currency }}</span>
                                   </div>
                                   <div class="category-limit">
-                                    <span class="limit-label">Expended:</span>
-                                    <span class="limit-value">{{ category.currently_spent }} {{ category.currency }}</span>
+                                    {% if category.is_expended %}
+                                        <span class="limit-label" style="font-weight: 600; color: red;">Expended:</span>
+                                        <span class="limit-value" style="font-weight: 600; color: red;">{{ category.currently_spent }} {{ category.currency }}</span>
+                                    {% else %}
+                                        <span class="limit-label">Expended:</span>
+                                        <span class="limit-value">{{ category.currently_spent }} {{ category.currency }}</span>
+                                    {% endif %}
                                   </div>
                             </div>
                         </div>

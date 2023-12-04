@@ -9,9 +9,10 @@ CURRENCIES = [('UAN', 'UAN'), ('USD', 'USD'), ('EUR', 'EUR')]
 
 
 class CategoryCreateForm(forms.ModelForm):
+    is_expended = forms.BooleanField(widget=forms.HiddenInput(),required=False)
     class Meta:
         model = Category
-        fields = ['cat_name', 'the_limit', 'currently_spent', 'date_of_rent', 'due_date','currency', 'color_save']
+        fields = ['cat_name', 'the_limit', 'currently_spent', 'date_of_rent', 'due_date','currency', 'color_save','is_expended']
         widgets = {
             'cat_name': forms.TextInput(attrs={'placeholder': 'Enter category name', 'class': 'input-text'}),
             'the_limit': forms.NumberInput(attrs={'placeholder': '0', 'class':'input-text', 'type':"text", 'id':"limit"}),
@@ -34,6 +35,8 @@ class CategoryCreateForm(forms.ModelForm):
         if not self.is_editing:  
             if data < 0 or not isinstance(data,int):
                 raise ValidationError('Invalid data, must be more than zero and be integer')
+            if data > self.cleaned_data['the_limit']:
+                raise ValidationError('Invalid data, limit must be less than currently spent')
         return data
 
     def clean_date_of_rent(self):
@@ -57,6 +60,7 @@ class CategoryCreateForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         super(CategoryCreateForm, self).__init__(*args, **kwargs)
         self.fields['date_of_rent'].initial = datetime.date.today()
+        self.fields['is_expended'].initial = False
         self.fields['color_save'].initial = "#b097da"
 
     def clean(self):

@@ -22,6 +22,7 @@ class Category(models.Model):
     due_date = models.DateField("Due date")
     color_save = models.CharField(default="rgba(176,151,218,255)", max_length=100, blank=False)
     is_editing = False
+    is_expended = models.BooleanField(default=False)
 
 
     def __str__(self):
