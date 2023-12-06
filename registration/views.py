@@ -41,6 +41,7 @@ def LogoutPage(request):
     return redirect('login')
 
 def landing_page(request):
+    logout(request)
     return render(request, 'landing.html')
 
 

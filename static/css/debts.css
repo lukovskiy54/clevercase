@@ -327,3 +327,84 @@ section {
     font-weight: 700;
     line-height: normal;
 }
+.burger-open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    z-index: 3;
+
+    width: auto;
+    height: auto;
+    background-color: #e8e8e8a1;
+
+    
+    transition: 0.8s;
+    transform: translateX(-100%);
+}
+.burger-icon {
+    background: transparent;
+}
+.burger-open.is-active {
+    transform: translateX(0%);
+}
+
+.opened-menu-option-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 12vh;
+    color: #252525;
+}
+.burger-container{
+    background: transparent;
+    border: 0;
+}
+.burger-container:hover{
+    opacity: 0.8;
+}
+.opened-menu-option-box:hover {
+    background-color: #252525;
+    color: #E8E8E8;
+}
+
+.opened-menu-option-box:hover .opened-menu-icon path {
+    stroke: #E8E8E8;
+}
+
+.opened-menu-option-box-text {
+    text-align: center;
+
+    width: 17vw;
+    
+    margin-left: 1vw;
+    
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 1.6vw;
+}
+
+.opened-menu-option-box-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 12vh;
+    height: 12vh;
+}
+
+.opened-menu-icon {
+    height: 6vh;
+}
+
+.opened-menu-vertical-line {
+    width: 100%;
+    height: 2px;
+
+    background-color: #252525;
+}
+
+.opened-menu-right-border {
+    width: 2px;
+    height: 100%;
+    background-color: #252525;
+}

@@ -18,8 +18,13 @@ if (profileButton) {
     });
 }
 
-function playSound() {
-    var sound = document.getElementById("mySound");
-    sound.currentTime = 0;
-    sound.play();
+
+
+const burgerButton = document.querySelector('.menu-container')
+const openBurger = document.querySelector('.burger-open')
+
+if (burgerButton) {
+    burgerButton.addEventListener('click', function () {
+        openBurger.classList.toggle('is-active');
+    });
 }

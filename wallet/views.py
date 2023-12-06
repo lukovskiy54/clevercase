@@ -22,7 +22,7 @@ def home_page(request):
             notification = Notification.objects.filter(is_checked=False)
             notification.update(is_checked=True)
             return redirect('home')
-        if action == 'clean_nots':
+        if action == 'clear_nots':
             notifications.delete()
             return redirect('home')
         if 'save' in request.POST:
@@ -35,10 +35,12 @@ def home_page(request):
                 form = CategoryCreateForm(request.POST, instance=category, request=request,  is_editing=True)  
                 is_editing = True
             if form.is_valid():
-
+                    
                     category = form.save(commit=False)
                     category.user = request.user
                     category.is_expended = False
+                    if category.currently_spent >= category.the_limit:
+                         category.is_expended = True
                     category.save()
                     return redirect('home')
             else:

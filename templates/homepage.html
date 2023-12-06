@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="../static/img/ico.png" type="image/x-icon">
     <link rel="stylesheet" href="../static/css/homepage.css">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -13,36 +14,9 @@
 
 <body>
     <audio id="mySound" src="../static/css/sound1.mp3"></audio>
-    <header>
-        <div class="burger">
-            <button class="button" onclick="playSound()">
-                <img src="../static/img/home/burger-menu.svg" alt="Menu Icon" />
-            </button>
-        </div>
-        <div class="header-text">
-            <img src="../static/img/home/vector-1.svg" alt="Clevercase Logo" style="vertical-align: middle;">
-            Clevercase
-        </div>
-        <div>
-            <div style="display: flex">
-                <form id="check_nots" action="" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="action" value="show_nots">
-                        <button type="submit" class="button" id="not-btn">
-                            <img src="../static/img/home/notifications.svg" alt="Bell Icon" style="vertical-align: middle;">
-                            {% if unchecked_notifications_count > 0 %}
-                            <div class="notification-circle">
-                                <span class="nots-number">{{ unchecked_notifications_count }}</span>
-                            </div>
-                            {% endif %}
-                        </button>
-                    </form>
-                <button class="button" onclick="playSound()">
-                    <img src="../static/img/home/profile.svg" alt="Search Icon" style="vertical-align: middle;">
-                </button>
-            </div>
-        </div>
-    </header>
+    
+        {% include 'header.html' %}
+    
     <div id="notification-list">
         <ul>
             {% if not notifications %}
@@ -75,7 +49,6 @@
                     </button>
                 </div>
                 <div class="content-wrapper">
-
                     {% for category in categories %}
                     <div class="category-card" data-bgcolor="{{ category.color_save }}" style="background-color: {{ category.color_save }}">
                         <div class="category-text-content">
