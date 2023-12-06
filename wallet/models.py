@@ -54,4 +54,14 @@ class Spendings(models.Model):
     amount = models.IntegerField()
     date= models.DateField("DD.MM.YYYY", default=timezone.now)
     categoryId = models.IntegerField()
-    
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    message = models.CharField(max_length=255)
+    created_at = models.DateTimeField(default=timezone.now)
+    is_checked = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Notification for {self.user.username} - {self.category.cat_name}"

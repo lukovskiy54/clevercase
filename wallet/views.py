@@ -3,17 +3,28 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
 from wallet.forms import CategoryCreateForm, AddSpendings
-from wallet.models import Category
+from wallet.models import Category, Notification
 
 
 @login_required(login_url='login')
 def home_page(request):
     form = CategoryCreateForm()
     categories = Category.objects.filter(user=request.user)
+    notifications = Notification.objects.filter(user=request.user)
+    print(notifications)
+    unchecked_notifications_count = notifications.filter(is_checked=False).count()
     id = 0
     is_editing = False
     addSpendings = AddSpendings()
     if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'show_nots':
+            notification = Notification.objects.filter(is_checked=False)
+            notification.update(is_checked=True)
+            return redirect('home')
+        if action == 'clean_nots':
+            notifications.delete()
+            return redirect('home')
         if 'save' in request.POST:
             pk = request.POST.get('save')
             print(pk)
@@ -78,5 +89,7 @@ def home_page(request):
         'id': id,
         'is_editing': is_editing,
         'addSpendings':addSpendings,
+        'notifications': notifications,
+        'unchecked_notifications_count': unchecked_notifications_count,
     }
     return render(request, 'homepage.html', context)

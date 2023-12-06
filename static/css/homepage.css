@@ -24,6 +24,7 @@ body {
             align-items: center;
         }
         .button {
+            position: relative;
             padding: 20px 13px;
             background: none;
             border: none;
@@ -662,4 +663,59 @@ body {
             }
 
         
-        
+.notification-circle {
+    position: absolute;
+    bottom: 22px;
+    right: 14px;
+     width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nots-number {
+    color: white;
+    font-size: 12px;
+}
+
+#notification-list {
+    display: none;
+    text-align: center;
+    border: 3px solid #000;
+    position: absolute;
+    right: 67px;
+    max-width: 300px;
+    z-index: 9999;
+}
+#notification-list ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #D5DDD9;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: normal;
+}
+
+#notification-list ul li {
+    padding: 3px;
+    border-width: 3px 0;
+    border-style: solid;
+    border-color: #000;
+    word-wrap: break-word;
+    min-height: 30px;
+}
+
+#check_nots {
+    padding: 0;
+    margin: 0;
+}
+#check_nots input {
+    padding: 0;
+    margin: 0;
+}
+

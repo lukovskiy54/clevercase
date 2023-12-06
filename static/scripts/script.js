@@ -23,5 +23,3 @@ function playSound() {
     sound.currentTime = 0;
     sound.play();
 }
-
-

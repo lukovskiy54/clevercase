@@ -24,16 +24,40 @@
             Clevercase
         </div>
         <div>
-            <div>
-                <button class="button" onclick="playSound()">
-                    <img src="../static/img/home/notifications.svg" alt="Bell Icon" style="vertical-align: middle;">
-                </button>
+            <div style="display: flex">
+                <form id="check_nots" action="" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="show_nots">
+                        <button type="submit" class="button" id="not-btn">
+                            <img src="../static/img/home/notifications.svg" alt="Bell Icon" style="vertical-align: middle;">
+                            {% if unchecked_notifications_count > 0 %}
+                            <div class="notification-circle">
+                                <span class="nots-number">{{ unchecked_notifications_count }}</span>
+                            </div>
+                            {% endif %}
+                        </button>
+                    </form>
                 <button class="button" onclick="playSound()">
                     <img src="../static/img/home/profile.svg" alt="Search Icon" style="vertical-align: middle;">
                 </button>
             </div>
         </div>
     </header>
+    <div id="notification-list">
+        <ul>
+            {% if not notifications %}
+            There are no notifications at this time
+            {% endif %}
+            {% for notification in notifications %}
+                <li>{{ notification.message }} <br> <b>{{ notification.created_at|date:"d.m.Y H:i" }}</b></li>
+            {% endfor %}
+        </ul>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="clear_nots">
+            <button type="submit" class="button">Clean notifications</button>
+        </form>
+    </div>
     <main>
         
             <div id="main-content">
@@ -149,7 +173,6 @@
             </button>
         </div>
     </form>
-   
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -275,6 +298,7 @@
     </script>
     <script src="../static/scripts/create_cat.js"></script>
     <script src="../static/scripts/script.js"></script>
+    <script src="../static/scripts/notifications.js"></script>
 </body>
 
 </html>
