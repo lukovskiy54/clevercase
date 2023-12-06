@@ -1,5 +1,7 @@
 from django import forms
 from .models import Regpay
+import datetime
+from django.core.exceptions import ValidationError
 
 CURRENCIES = [('UAN', 'UAN'), ('USD', 'USD'), ('EUR', 'EUR')]
 FREQ = [('Day', 'Day'), ('Week', 'Week'), ('Month', 'Month'), ('Year', 'Year')]
@@ -20,9 +22,33 @@ class RegpayCreateForm(forms.ModelForm):
             'frequency_int': forms.NumberInput(attrs={'placeholder': '0', 'class': 'input-text', 'type': 'text', 'id': 'frequency_int'})
         }
 
+    def clean_amount(self):
+        data = self.cleaned_data['Amount']
+        if not self.is_editing:
+            if data <= 0 or not isinstance(data, int):
+                raise ValidationError('Invalid data, must be more or equal zero and be integer')
+        return data
+
+    def clean_frequency(self):
+        data = self.cleaned_data['frequency_int']
+        if not self.is_editing:
+            if data < 0 or not isinstance(data, int):
+                raise ValidationError('Invalid data, must be more than zero and be integer')
+        return data
+
+    def clean_reg_date(self):
+        data = self.cleaned_data['reg_date']
+        if not self.is_editing:
+            if data < datetime.date.today():
+                raise ValidationError('Invalid date - impossible to set due today')
+        return data
+
     def __init__(self, *args, **kwargs):
+        self.is_editing = kwargs.pop('is_editing', False)
         self.request = kwargs.pop('request', None)
         super(RegpayCreateForm, self).__init__(*args, **kwargs)
+        self.fields['date_of_rent'].initial = datetime.date.today()
+        self.fields['color_save'].initial = "#b097da"
 
     def clean(self):
         cleaned_data = super(RegpayCreateForm, self).clean()
