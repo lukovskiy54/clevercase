@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from registration.views import signup_page, LoginPage,  LogoutPage, landing_page, debts_menu
-from wallet.views import home_page
+from wallet.views import home_page, analytics_page
 from reg_pay.views import regpay_page
 
 
@@ -30,5 +30,6 @@ urlpatterns = [
     path('', landing_page, name="landing"),
     path('regularpays/', regpay_page, name='regularpays'),
     path('debts/', debts_menu, name="debts"),
+    path('analytics/', analytics_page, name="analytics"),
 ]
 #category_create_view

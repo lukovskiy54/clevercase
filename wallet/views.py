@@ -1,9 +1,12 @@
+from datetime import timezone
+
+from django.db.models.functions import TruncMonth
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
 from wallet.forms import CategoryCreateForm, AddSpendings
-from wallet.models import Category, Notification
+from wallet.models import Category, Notification, Spendings
 from wallet.reset import reset_currently_spent
 
 @login_required(login_url='login')
@@ -96,3 +99,26 @@ def home_page(request):
         'unchecked_notifications_count': unchecked_notifications_count,
     }
     return render(request, 'homepage.html', context)
+
+
+@login_required(login_url='login')
+def analytics_page(request):
+    categories = Category.objects.filter(user=request.user)
+
+    default_category = categories.first()
+
+    if default_category:
+        spendings_data = Spendings.objects.filter(categoryId=default_category.id, date__year__gte=timezone.now().year - 1)
+        monthly_spending = spendings_data.annotate(month=TruncMonth('date')).values('month').annotate(total=Sum('amount')).order_by('month')
+
+        data = [entry['total'] for entry in monthly_spending]
+    else:
+        data = []
+
+    context = {
+        'categories': categories,
+        'default_category': default_category,
+        'data': data,
+    }
+
+    return render(request, 'analytics.html', context)

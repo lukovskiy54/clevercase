@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../static/img/ico.png" type="image/x-icon">
+    <link rel="stylesheet" href="../static/css/analytics.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>Analytics</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <main>
+        <div class="choose-container">
+            <div class="body_text">To see analytics graphs, please select a </div>
+            <select class="custom-dropdown" id="categorySelect" onchange="loadCategoryAnalytics(this.value);">
+                <option value="" disabled selected hidden>category</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.cat_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="canvas-container">
+            <canvas id="canvas1" width="200" height="100" aria-label="This is a canvas"></canvas>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="../static/scripts/script.js"></script>
+    <script>
+        const ctx = document.getElementById('canvas1').getContext('2d');
+        const greenToBlueArray = ['#15740d', '#1b7b1f', '#208131', '#269743', '#2ca255',
+                                   '#33a768', '#3ab07a', '#41b88d', '#4ac09f', '#56c8b4', '#6cd1c9', '#8fdbee']
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    label: 'Monthly Spendings',
+                    data: {{ data|safe }},
+                    backgroundColor: greenToBlueArray
+                }],
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+</html>
