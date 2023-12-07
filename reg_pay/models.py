@@ -8,7 +8,7 @@ class Regpay(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     color_save = models.CharField(max_length=100, default="#0c854b66", null=True, blank=True)
     reg_name = models.CharField(max_length=30)
-    reg_date = models.DateTimeField("Dates of payment")
+    reg_date = models.DateField("Dates of payment")
     amount = models.IntegerField(default=None)
     currency = models.CharField(max_length=30)
     frequency = models.CharField(max_length=30)

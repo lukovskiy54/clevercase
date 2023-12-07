@@ -12,97 +12,213 @@
 <body>
     {% include 'header.html' %}
 <main>
+    <form method="post" action="{% url 'regularpays' %}">
     <div id="main-content">
         <div class="add_category">
             <div class="body_text">
                 Your regular payments
             </div>
-                <button  class="button_cat">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" >
-
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M38.171 7.08355C46.4091 16.0145 45.8476 29.9328 36.9167 38.171C27.9858 46.4091 14.0675 45.8476 5.82927 36.9167C-2.40892 27.9858 -1.84736 14.0675 7.08355 5.82927C16.0145 -2.40892 29.9328 -1.84736 38.171 7.08355ZM7.58284 22.011C7.58284 21.1826 8.25441 20.511 9.08284 20.511H20.7834V8.8116C20.7834 7.98317 21.455 7.3116 22.2834 7.3116C23.1119 7.3116 23.7834 7.98317 23.7834 8.8116V20.511H35.4828C36.3113 20.511 36.9828 21.1826 36.9828 22.011C36.9828 22.8394 36.3113 23.511 35.4828 23.511H23.7834V35.2116C23.7834 36.04 23.1119 36.7116 22.2834 36.7116C21.455 36.7116 20.7834 36.04 20.7834 35.2116V23.511H9.08284C8.25441 23.511 7.58284 22.8394 7.58284 22.011Z" fill="#054E2B"/>
-                    </svg>
-                </button>
+            <button formnovalidate class="button-cat" type="button"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M38.171 7.08355C46.4091 16.0145 45.8476 29.9328 36.9167 38.171C27.9858 46.4091 14.0675 45.8476 5.82927 36.9167C-2.40892 27.9858 -1.84736 14.0675 7.08355 5.82927C16.0145 -2.40892 29.9328 -1.84736 38.171 7.08355ZM7.58284 22.011C7.58284 21.1826 8.25441 20.511 9.08284 20.511H20.7834V8.8116C20.7834 7.98317 21.455 7.3116 22.2834 7.3116C23.1119 7.3116 23.7834 7.98317 23.7834 8.8116V20.511H35.4828C36.3113 20.511 36.9828 21.1826 36.9828 22.011C36.9828 22.8394 36.3113 23.511 35.4828 23.511H23.7834V35.2116C23.7834 36.04 23.1119 36.7116 22.2834 36.7116C21.455 36.7116 20.7834 36.04 20.7834 35.2116V23.511H9.08284C8.25441 23.511 7.58284 22.8394 7.58284 22.011Z"
+                        fill="#054E2B" />
+                </svg>
+            </button>
         </div>
         <div class="content-wrapper">
             {% for regpay in regpays %}
-            <button  class="created_category" style="background-color: {{ regpay.color_save }};" onclick="playSound()">
-                <span id="category_name">{{ regpay.reg_name }}</span>
-                <svg id="created_category_line" xmlns="http://www.w3.org/2000/svg" width="260" height="2" viewBox="0 0 260 2" fill="none">
-                    <path d="M0 1L260 1" stroke="white"/>
-                </svg>
-                <div class="text-row">
-                  <span class="left-span">Amount:</span>
-                  <span class="right-span">{{ regpay.amount }}</span>
+            <div class="category-card" data-bgcolor="{{ regpay.color_save }}" style="background-color: {{ regpay.color_save }}">
+                <div class="category-text-content">
+                    <div class="category-header">
+                        <span class="category-title" data-bgcolor="{{ category.color_save }}">{{ regpay.reg_name }}</span>
+                    </div>
+                    <div class="category-content" data-bgcolor="{{ category.color_save }}">
+                          <div class="category-limit">
+                            <span class="limit-label">Amount:</span>
+                            <span class="limit-value">{{ regpay.amount }} {{ regpay.currency }}</span>
+                          </div>
+                          <div class="category-limit">
+                                <span class="limit-label">Every:</span>
+                                <span class="limit-value">{{ regpay.frequency_int }} {{ regpay.frequency }}</span>
+                          </div>
+                    </div>
                 </div>
-                <div class="text-row">
-                    <span class="left-span">Every:</span>
-                  <span class="right-span">{{ regpay.frequency_int }}{{ regpay.frequency }}</span>
+                <div class="right-buttons">
+                    <button formnovalidate class="category-action" name="add" value="{{ category.id }}"><img data-bgcolor="{{ category.color_save }}" class="category-action-image" src="../static/img/home/plus-circle.svg"></button>
+                    <button formnovalidate class="category-edit" name="edit"  value="{{ category.id }}" ><img data-bgcolor="{{ category.color_save }}" class="category-edit-image" src="../static/img/home/pencil.svg"></button>
                 </div>
-
-                <div id="created_category_btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="240" viewBox="0 0 64 240" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 240H28.0001C47.8824 240 64.0001 223.882 64.0001 204L64.0001 36C64.0001 16.1178 47.8824 0 28.0001 0H0L0 240Z" fill="#000000" fill-opacity="0.2" />
-                        <path class="button" fill-rule="evenodd" clip-rule="evenodd" d="M25 48.125C17.75125 48.125 11.875 42.2469 11.875 35C11.875 27.75313 17.75125 21.875 25 21.875C32.2488 21.875 38.125 27.75313 38.125 35C38.125 42.2469 32.2488 48.125 25 48.125ZM25 20C16.71531 20 10 26.7125 10 35C10 43.2875 16.71531 50 25 50C33.2847 50 40 43.2875 40 35C40 26.7125 33.2847 20 25 20ZM30.625 34.0625H25.9375V29.375C25.9375 28.85938 25.5184 28.4375 25 28.4375C24.4816 28.4375 24.0625 28.85938 24.0625 29.375V34.0625H19.375C18.85656 34.0625 18.4375 34.4844 18.4375 35C18.4375 35.5156 18.85656 35.9375 19.375 35.9375H24.0625V40.625C24.0625 41.1406 24.4816 41.5625 25 41.5625C25.5184 41.5625 25.9375 41.1406 25.9375 40.625V35.9375H30.625C31.1434 35.9375 31.5625 35.5156 31.5625 35C31.5625 34.4844 31.1434 34.0625 30.625 34.0625Z" fill="white" transform="translate(7,2)"/>
-                        <path class="button" fill-rule="evenodd" clip-rule="evenodd" d="M25.993 12.0149C25.5434 12.0149 25.1789 12.3944 25.1789 12.8624V28.3388C25.1789 29.9743 23.9004 31.3051 22.3294 31.3051H4.47771C2.90671 31.3051 1.62828 29.9742 1.62828 28.3388V9.75455C1.62828 8.11909 2.90671 6.78828 4.47771 6.78828H22.3294C22.779 6.78828 23.1435 6.40881 23.1435 5.94077C23.1435 5.47273 22.779 5.09326 22.3294 5.09326H4.47771C2.00866 5.09326 0 7.18427 0 9.75455V28.3388C0 30.909 2.00866 33.0001 4.47771 33.0001H22.3294C24.7984 33.0001 26.8071 30.909 26.8071 28.3388V12.8625C26.8071 12.3945 26.4426 12.0149 25.993 12.0149Z" fill="white" transform="translate(20,180)"/>
-                        <path class="button" fill-rule="evenodd" clip-rule="evenodd" d="M32.7889 0.76614C31.8074 -0.255588 30.2106 -0.255172 29.23 0.76614L15.285 15.2836C15.2664 15.3031 15.0561 15.5307 15.0016 15.6582L13.0705 20.1747C12.9333 20.4953 13.0001 20.8707 13.2386 21.1187C13.3944 21.2808 13.6027 21.3669 13.8146 21.3669C13.9262 21.3669 14.0387 21.3429 14.1453 21.2935L18.4838 19.2832C18.6058 19.2266 18.8248 19.0076 18.8436 18.9882L32.7889 4.47115C33.2643 3.97619 33.5263 3.31824 33.5263 2.61844C33.5263 1.91871 33.2643 1.26062 32.7889 0.76614ZM31.6377 3.27229L17.6923 17.7898C17.69 17.7923 17.6887 17.7952 17.6864 17.7972L15.4202 18.8475L16.429 16.4883C16.431 16.4858 16.4338 16.4845 16.4362 16.4821L30.3812 1.96466C30.7171 1.6149 31.3026 1.61531 31.6377 1.965C31.8056 2.13923 31.8981 2.37141 31.8981 2.61844C31.8981 2.86547 31.8055 3.09758 31.6377 3.27229Z" fill="white" transform="translate(20,180)"/>
-                    </svg>
-
-
-                </div>
-            </button>
+            </div>
             {% endfor %}
         </div>
-    <div class="content-wrapper">
+        <div class="content-wrapper" >
             <div class="form-container" id="colorful-object">
-            <form method="post">
                 {% csrf_token %}
-
                 <div class="input-container">
-                    <div class="text_box">Payment's name</div>
+                    <div class="text_box" style="margin-bottom: 10px;">Name of category</div>
                     {{ form.reg_name }}
                 </div>
 
-                <div class="text_box">Amount of payment</div>
-                <div class="input-container-date"  class="input-text" id="spent_text">
+                <div class="input-container-date" class="input-text">
+                    <div class="text_box">Amount</div>
                     {{ form.amount }}
                     {{ form.currency }}
-                </div>
-                <div class="input-container-date" class="input-text">
-                <div class="text_box">Start date</div>
-                    {{ form.reg_date }}
+                    {{ form.the_limit.errors.as_ul }}
+                    <div class="text_box">Start date</div>
+                    <div >{{ form.reg_date }}</div>
                 </div>
 
                 <div class="input-container-date" class="input-text">
-                    <div class="text_box">Payments every:</div>
+                    <div class="text_box">Payments every</div>
                     {{ form.frequency_int }}
                     {{ form.frequency }}
+                    {{ form.the_limit.errors.as_ul }}
                 </div>
 
-
-                <div class="text_box">Background color</div>
-                <div class="input-container-color">
+                <div class="text_box" data-error-count="{{ form.errors|length }}" id="error-count">Background color</div>
+                <div class="input-container-color" >
                     {{ form.color_save }}
                 </div>
-                <div class="container">
-                    <button class="submit-btn" type="submit" value="Create" onclick="playSound()">Save changes</button>
+                <div class="container"  >
+                    <button class="submit-btn" value="{{ id }}" name="save">Save changes</button>
+                    {% if is_editing %}
+                    <button class="submit-btn" style="margin-left: 181px;" value="{{ id }}" name="delete">Delete</button>
+                    {% endif %}
                 </div>
-                <button class="close-button" formnovalidate onclick="playSound()">
-                    <img src="../static/img/home/close.svg" alt="Close" style="vertical-align: middle; position: absolute;right: 15px;top: 15px;">
+                <button formnovalidate  class="close-button">
+                    <img src="../static/img/home/close.svg" alt="Close"
+                        style="vertical-align: middle; position: absolute;right: 15px;top: 15px;">
                 </button>
-             </form>
             </div>
         </div>
+    </form>
     </div>
 </main>
-    <script src="../static/scripts/script.js"></script>
-    <script src="../static/scripts/create_cat.js"></script>
 <script>
-        function playSound() {
-        var sound = document.getElementById("mySound");
-        sound.currentTime = 0;
-        sound.play();
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.category-card').forEach(card => {
+            const bgColor = card.getAttribute('data-bgcolor');
+            const textColor = getContrastYIQ(bgColor);
+            card.style.color = textColor;
+        });
+        document.querySelectorAll('.category-title').forEach(card => {
+            const bgColor = card.getAttribute('data-bgcolor');
+            const textColor = getContrastYIQ(bgColor);
+            card.style.color = textColor;
+        });
+        document.querySelectorAll('.category-content').forEach(card => {
+            const bgColor = card.getAttribute('data-bgcolor');
+            const textColor = getContrastYIQ(bgColor);
+            card.style.setProperty('--border-top-color', textColor);
+        });
+        document.querySelectorAll('.category-action-image').forEach(card => {
+            if (card.hasAttribute('data-bgcolor')) {
+                const bgColor = card.getAttribute('data-bgcolor');
+                const textColor = getContrastYIQ(bgColor);
+                if (textColor == 'black') {
+                    card.src = "../static/img/home/black-plus.svg";
+                }
+            }
+        });
+        document.querySelectorAll('.category-edit-image').forEach(card => {
+            if (card.hasAttribute('data-bgcolor')) {
+                const bgColor = card.getAttribute('data-bgcolor');
+                const textColor = getContrastYIQ(bgColor);
+                if (textColor == 'black') {
+                    card.src = "../static/img/home/black-pencil.svg";
+                }
+            }
+        });
+        var div = document.getElementById('colorful-object');
+        var div2 = document.getElementById('add-spendings');
+        var displayState = localStorage.getItem('displayState');
+        var adddisplayState = localStorage.getItem('adddisplayState');
+        var errorCountElement = document.getElementById('error-count');
+        var errorCount = errorCountElement.getAttribute('data-error-count');
+        console.log(errorCount)
+        if(errorCount == 0) {
+            if (displayState) {
+                div.style.display = displayState;
+            }
+        }else{
+            div.style.display = 'block';
+            displayState = 'block';
         }
-    </script>
+        if (adddisplayState) {
+            div2.style.display = adddisplayState
+        }else{
+            div2.style.display = 'block'
+            adddisplayState = 'block'
+        }
+        function hideAddForm() {
+            const addFormContainer = document.getElementById('add-spendings');
+            addFormContainer.style.display = 'none';
+            localStorage.setItem('adddisplayState', 'none');
+         }
+        const submitButtonAdd = document.querySelector('.submit-btn-add');
+        submitButtonAdd.addEventListener('click', hideAddForm);
+    });
+    document.addEventListener('DOMContentLoaded', (event) => {
+        function toggleVisibility() {
+            var div = document.getElementById('colorful-object');
+            var errorCountElement = document.getElementById('error-count');
+            var errorCount = errorCountElement.getAttribute('data-error-count');
+            console.log(errorCount)
+            if(errorCount == 0) {
+                console.log("mm")
+                if (div.style.display === 'none' || div.style.display === '') {
+                    div.style.display = 'block';
+                    localStorage.setItem('displayState', 'block');
+                } else {
+                    div.style.display = 'none';
+                    localStorage.setItem('displayState', 'none');
+                }
+            }
+        }
+        document.querySelectorAll(' .category-edit, .button-cat, .close-button, .submit-btn').forEach(button => {
+            button.addEventListener('click', toggleVisibility);
+        });
+    });
+
+    function getContrastYIQ(hexcolor){
+        hexcolor = hexcolor.replace("#", "");
+        var r = parseInt(hexcolor.substr(0,2),16);
+        var g = parseInt(hexcolor.substr(2,2),16);
+        var b = parseInt(hexcolor.substr(4,2),16);
+        var yiq = ((r*299)+(g*587)+(b*114))/1000;
+        return (yiq >= 180) ? 'black' : 'white';
+    }
+
+    
+</script>
+<script>
+   document.addEventListener('DOMContentLoaded', (event) => {
+// Function to show the add-form-container
+function showAddForm() {
+    const addFormContainer = document.getElementById('add-spendings');
+    addFormContainer.style.display = 'block';
+    localStorage.setItem('adddisplayState', 'block');
+}
+
+// Function to hide the add-form-container
+function hideAddForm() {
+    const addFormContainer = document.getElementById('add-spendings');
+    addFormContainer.style.display = 'none';
+    localStorage.setItem('adddisplayState', 'none');
+}
+
+// Add click event listener to all category-action buttons
+document.querySelectorAll('.category-action').forEach(button => {
+    button.addEventListener('click', showAddForm);
+});
+
+// Add click event listener to the close button
+document.querySelector('.close-button-add').addEventListener('click', hideAddForm);
+});
+</script>
+<script src="../static/scripts/create_cat.js"></script>
+<script src="../static/scripts/script.js"></script>
+<script src="../static/scripts/notifications.js"></script>
+
 </body>
 </html>

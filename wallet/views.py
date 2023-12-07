@@ -4,10 +4,11 @@ from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
 from wallet.forms import CategoryCreateForm, AddSpendings
 from wallet.models import Category, Notification
-
+from wallet.reset import reset_currently_spent
 
 @login_required(login_url='login')
 def home_page(request):
+    reset_currently_spent()
     form = CategoryCreateForm()
     categories = Category.objects.filter(user=request.user)
     notifications = Notification.objects.filter(user=request.user)

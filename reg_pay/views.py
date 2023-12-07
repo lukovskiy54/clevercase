@@ -17,24 +17,16 @@ def regpay_page(request):
                 regpay.user = request.user
                 regpay.save()
                 return redirect('regularpays')
-        form = RegpayCreateForm()
-        regpays = Regpay.objects.filter(user=request.user)
-        print(regpays)
-        context = {
-            'form': form,
-            'regpays': regpays,
-        }
-    elif 'delete' in request.POST:
-        pk = request.POST.get('delete')
-        print(pk)
-        category = Regpay.objects.get(id=pk)
-        category.delete()
-    elif 'edit' in request.POST:
-        print("hay")
-        pk = request.POST.get('edit')
-        regpay = Regpay.objects.get(id=pk)
-        form = RegpayCreateForm(instance=regpay)
-        id = pk
+            else:
+                form = RegpayCreateForm()
+                regpays = Regpay.objects.filter(user=request.user)
+                print(regpays)
+                context = {
+                    'form': form,
+                    'regpays': regpays,
+                }   
+        
+        
 
     context = {
         'regpays': regpays,

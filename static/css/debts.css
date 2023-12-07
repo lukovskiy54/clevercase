@@ -325,6 +325,51 @@ section {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+
+}
+
+#notification-list {
+    display: none;
+    text-align: center;
+    border: 3px solid #000;
+    position: absolute;
+    right: 67px;
+    max-width: 300px;
+    z-index: 9999;
+}
+#notification-list ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #D5DDD9;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: normal;
+   
+}
+
+#notification-list ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 12vh;
+    
+    padding: 3px;
+    border-width: 3px 0;
+    border-style: solid;
+    border-color: #000;
+    word-wrap: break-word;
+    min-height: 30px;
+}
+
+#check_nots {
+    padding: 0;
+    margin: 0;
+}
+#check_nots input {
+    padding: 0;
+    margin: 0;
 }
 
 #notification-list {

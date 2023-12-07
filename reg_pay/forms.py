@@ -12,43 +12,33 @@ class RegpayCreateForm(forms.ModelForm):
         model = Regpay
         fields = ['reg_name', 'reg_date', 'amount', 'color_save', 'currency', 'frequency', 'frequency_int']
         widgets = {
-            'reg_name': forms.TextInput(attrs={'placeholder': 'Enter regular pays name', 'class': 'input-text'}),
-            'amount': forms.NumberInput(attrs={'placeholder': '0', 'class': 'input-text', 'type': "text", 'id': "amount"}),
-            'reg_date': forms.DateInput(attrs={'type': 'date', 'id': 'reg-date', 'class': 'input-text'}),
-            'color_save': forms.TextInput(
-                attrs={'type': "color", 'id': "bg-color", 'style': "width: 3px; height: 3px; border-radius: 360px"}),
+            'reg_name': forms.TextInput(attrs={'placeholder': 'Enter regular pays name', 'class': 'input-text','style':'width:87.1%; margin-bottom:0;'}),
+            'amount': forms.NumberInput(attrs={'placeholder': '0', 'class': 'input-text', 'type': "text", 'id': "amount",  'style':'margin-top:10px;'}),
+            'reg_date': forms.DateInput(attrs={'type': 'date', 'id': 'reg-date', 'class': 'input-text', 'style':'width:87.1%;margin-top:16px; margin-bottom:30px'}),
+            'color_save': forms.TextInput(attrs={'type': "color", 'id': "bg-color", 'style':"width: 100px; height: 50px;margin-left:53px; margin-top: 10px"}),
             'currency': forms.Select(choices=CURRENCIES, attrs={'class': 'custom-dropdown', 'id': 'currency'}),
             'frequency': forms.Select(choices=FREQ, attrs={'class' : 'custom-dropdown', 'id': 'frequency'}),
             'frequency_int': forms.NumberInput(attrs={'placeholder': '0', 'class': 'input-text', 'type': 'text', 'id': 'frequency_int'})
         }
 
     def clean_amount(self):
-        data = self.cleaned_data['Amount']
-        if not self.is_editing:
-            if data <= 0 or not isinstance(data, int):
-                raise ValidationError('Invalid data, must be more or equal zero and be integer')
+        data = self.cleaned_data['amount']
+        if data <= 0 or not isinstance(data, int):
+            raise ValidationError('Invalid data, must be more or equal zero and be integer')
         return data
 
-    def clean_frequency(self):
-        data = self.cleaned_data['frequency_int']
-        if not self.is_editing:
-            if data < 0 or not isinstance(data, int):
-                raise ValidationError('Invalid data, must be more than zero and be integer')
-        return data
 
     def clean_reg_date(self):
         data = self.cleaned_data['reg_date']
-        if not self.is_editing:
-            if data < datetime.date.today():
-                raise ValidationError('Invalid date - impossible to set due today')
+        if data < datetime.date.today():
+            raise ValidationError('Invalid date - impossible to set due today')
         return data
 
     def __init__(self, *args, **kwargs):
-        self.is_editing = kwargs.pop('is_editing', False)
         self.request = kwargs.pop('request', None)
         super(RegpayCreateForm, self).__init__(*args, **kwargs)
-        self.fields['date_of_rent'].initial = datetime.date.today()
         self.fields['color_save'].initial = "#b097da"
+        
 
     def clean(self):
         cleaned_data = super(RegpayCreateForm, self).clean()

@@ -20,19 +20,20 @@
     
         {% include 'header.html' %}
     
-    <div id="notification-list">
+    <div id="notification-list" style="border-bottom-left-radius: 36px; border-bottom-right-radius: 36px;">
         <ul>
             {% if not notifications %}
             <div class="no-notifications-text">There are no notifications at this time</div>
             {% endif %}
             {% for notification in notifications %}
-                <li>{{ notification.message }} <br> <b>{{ notification.created_at|date:"d.m.Y H:i" }}</b></li>
+                <li style="color: white; margin-bottom: 20px; margin-top: 20px;">{{ notification.message }} <br> <b style="color: white;">{{ notification.created_at|date:"d.m.Y H:i" }}</b></li>
+                <div class="opened-menu-vertical-line" style="margin-left: 30px;"></div>
             {% endfor %}
         </ul>
         <form action="" method="post">
             {% csrf_token %}
             <input type="hidden" name="action" value="clear_nots">
-            <button type="submit" class="button">Clean notifications</button>
+            <button type="submit" class="button" style="color: white;">Clean notifications</button>
         </form>
     </div>
     <main>
