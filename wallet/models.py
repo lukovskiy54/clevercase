@@ -19,7 +19,6 @@ class Category(models.Model):
     currently_spent = models.IntegerField(default=0)
     date_of_rent = models.DateField("Date of rent", default=timezone.now)
     currency = models.CharField(max_length=2, choices=Currency.choices, default=Currency.UAH)
-    due_date = models.DateField("Due date")
     color_save = models.CharField(default="rgba(176,151,218,255)", max_length=100, blank=False)
     is_editing = False
     is_expended = models.BooleanField(default=False)

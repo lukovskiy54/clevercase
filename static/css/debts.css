@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: #D5DDD9;
     margin: 0;
     padding: 0;
@@ -13,8 +13,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 9%;
-    min-height: 72px;
+    height: 72px;
 }
 
 .header-text {
@@ -81,7 +80,7 @@ section {
 .debt-container {
     color: #FFF;
     text-align: center;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 27px;
     font-style: normal;
     font-weight: 700;
@@ -97,7 +96,7 @@ section {
     display: inline-block;
     font-size: 16px;
     text-align: center;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 30px;
     font-style: normal;
     font-weight: normal;
@@ -151,7 +150,7 @@ section {
 .debtor-name {
     color: #FFF;
     text-align: center;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 30px;
     font-style: normal;
     font-weight: 700;
@@ -167,7 +166,7 @@ section {
 .add_debt span {
     color: #054E2B;
     text-align: center;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 30px;
     font-style: normal;
     font-weight: 700;
@@ -204,7 +203,7 @@ section {
     cursor: pointer;
     color: #044B27;
     text-align: center;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 700;
@@ -226,7 +225,7 @@ section {
 .debt-form-field span {
     color: #E8E8E8;
     text-align: center;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 23px;
     font-style: normal;
     font-weight: 700;
@@ -241,7 +240,7 @@ section {
     border: none;
     color: #054E2B;
     text-align: center;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     font-style: normal;
     font-weight: 300;
@@ -251,7 +250,7 @@ section {
 .error-list {
     margin-bottom: 26px;
     color: #FFF;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     font-style: normal;
     font-weight: 300;
@@ -272,7 +271,7 @@ section {
 .debt-amount-input select {
     color: #054E2B;
     text-align: center;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     font-style: normal;
     font-weight: 300;
@@ -321,11 +320,49 @@ section {
     backdrop-filter: blur(2px);
     color: #044B27;
     text-align: center;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+}
+
+#notification-list {
+    display: none;
+    text-align: center;
+    border: 3px solid #000;
+    position: absolute;
+    right: 67px;
+    max-width: 300px;
+    z-index: 9999;
+}
+#notification-list ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #D5DDD9;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: normal;
+}
+
+#notification-list ul li {
+    padding: 3px;
+    border-width: 3px 0;
+    border-style: solid;
+    border-color: #000;
+    word-wrap: break-word;
+    min-height: 30px;
+}
+
+#check_nots {
+    padding: 0;
+    margin: 0;
+}
+#check_nots input {
+    padding: 0;
+    margin: 0;
 }
 .burger-open {
     display: flex;
@@ -408,3 +445,4 @@ section {
     height: 100%;
     background-color: #252525;
 }
+

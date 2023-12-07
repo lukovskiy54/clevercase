@@ -1,36 +1,253 @@
 
-    <header class="nav">
-        {% include 'menu.html' %}
-        <div class="header-text">
-            <img src="../static/img/home/vector-1.svg" alt="Clevercase Logo" style="vertical-align: middle;">
-            Clevercase
-        </div>
-        <div>
-            <div style="display: flex">
-                <form id="check_nots" action="" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="action" value="show_nots">
-                        <button type="submit" class="button" id="not-btn">
-                            <img src="../static/img/home/notifications.svg" alt="Bell Icon" style="vertical-align: middle;">
-                            {% if unchecked_notifications_count > 0 %}
-                            <div class="notification-circle">
-                                <span class="nots-number">{{ unchecked_notifications_count }}</span>
-                            </div>
-                            {% endif %}
-                        </button>
-                    </form>
-                <button class="button add-account-container">
-                    <img src="../static/img/home/profile.svg" alt="Search Icon" style="vertical-align: middle;">
+<header>
+    {% include 'menu.html' %}
+    <div class="desktop-logo">
+        <img src="../static/img/home/logo-with-text.svg" alt="Clevercase Logo" class="desktop-logo"
+            style="vertical-align: middle;" onclick="location.reload(true);">
+    </div>
+    <div>
+        <div style="display: flex">
+            <form id="check_nots" action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="show_nots">
+                <button type="submit" class="button" id="not-btn">
+                    <img src="../static/img/home/notifications.svg" alt="Bell Icon" style="vertical-align: middle;">
+                    {% if unchecked_notifications_count > 0 %}
+                    <div class="notification-circle">
+                        <span class="nots-number">{{ unchecked_notifications_count }}</span>
+                    </div>
+                    {% endif %}
                 </button>
-                <a class="add-account" href="{% url 'landing' %}">
-                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-account-plus">
-                        <circle cx="30" cy="30" r="30" fill="#E8E8E8"/>
-                        <path d="M30 12V48" stroke="#054E2B" stroke-width="5" stroke-linecap="round"/>
-                        <path d="M12 30H48" stroke="#054E2B" stroke-width="5" stroke-linecap="round"/>
-                    </svg>
-                    <h1 class="add-account-text"> Log out </h1>
-                </a>
-            </div>
+            </form>
+            <button class="button add-account-container">
+                <img src="../static/img/home/profile.svg" alt="Search Icon" style="vertical-align: middle;">
+            </button>
+            <a class="add-account" href="{% url 'landing' %}">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="add-account-plus">
+                    <circle cx="30" cy="30" r="30" fill="#E8E8E8" />
+                    <path d="M30 12V48" stroke="#054E2B" stroke-width="5" stroke-linecap="round" />
+                    <path d="M12 30H48" stroke="#054E2B" stroke-width="5" stroke-linecap="round" />
+                </svg>
+                <h1 class="add-account-text"> Log out </h1>
+            </a>
         </div>
-    </header>
-        
+    </div>
+</header>
+<style>
+    header .burger-container {
+    background: transparent;
+    border: 0;
+}
+
+header .burger-container:hover {
+    opacity: 0.8;
+}
+
+header .header-btn {
+    /* Add specific styles for .header-btn here, similar to the original .button styles */
+    padding: 20px 13px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+    min-height: 72px;
+    max-height: 72px;
+    
+    background-color: #054E2B;
+}
+
+header .burger-open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    z-index: 3;
+    width: auto;
+    height: auto;
+    background-color: #487C65;
+    transition: 0.8s;
+    transform: translateX(-100%);
+    border-bottom-right-radius: 36px;
+}
+
+header .burger-open.is-active {
+    transform: translateX(0%);
+}
+
+header .opened-menu-option-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 12vh;
+
+}
+
+header .opened-menu-option-box-text {
+    color: #fff;
+    text-align: center;
+    width: 17vw;
+    margin-left: 1vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300; 
+    font-size: 2vw;
+    border: 0;
+}
+
+header .opened-menu-option-box-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 12vh;
+    height: 12vh;
+}
+
+header .homepage-icon {
+    /* Add specific styles for .homepage-icon here, similar to the original icon styles */
+}
+
+header .opened-menu-icon {
+    height: 6vh;
+}
+
+header .opened-menu-right-border {
+    width: 2px;
+    height: 100%;
+    background-color: #252525;
+}
+
+header .opened-menu-vertical-line {
+    width: 80%;
+    height: 2px;
+    background-color: #fff;
+}
+
+header .regular-expenses-icon {
+    /* Add specific styles for .regular-expenses-icon here */
+}
+
+header .analytics-icon {
+    /* Add specific styles for .analytics-icon here */
+}
+
+header .add-account-container {
+    position: relative;
+    min-width: 72px;
+    min-height: 72px;
+    margin-right: 26px;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #054E2B;
+    transition-property: background-color;
+    transition-timing-function: ease;
+    transition-duration: 0.2s;
+}
+
+header .add-account-container:hover {
+    cursor: pointer;
+}
+
+header .add-account {
+    box-sizing: border-box;
+    position: absolute;
+    flex-direction: row;
+    text-decoration: none;
+    top: 72px;
+    right: 0px;
+    width: auto;
+    height: auto;
+    background: rgba(172, 172, 172, 0.4);
+    box-shadow: -1px 8px 24px 6px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12px);
+    border-radius: 36px;
+    display: none;
+    font-size: 1vw;
+    text-wrap: nowrap;
+    transition-property: opacity;
+    transition-timing-function: ease;
+    transition-duration: 0.5s;
+}
+
+header .add-account.is-active {
+    z-index: 2;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header .add-account:hover {
+    cursor: pointer;
+    background: rgba(172, 172, 172, 0.4);
+}
+
+header .add-account-plus {
+    margin-left: 0.2vw;
+    width: 4vw;
+}
+
+header .add-account-text {
+    margin-right: 2vw;
+    margin-left: 1vw;
+    color: #E8E8E8;
+}
+
+header .desktop-logo {
+    position: relative;
+    left: 0.3vw;
+    margin: auto;
+}
+
+header .desktop-logo:hover {
+    cursor: pointer;
+}
+
+header .notification-circle {
+    position: absolute;
+    bottom: 22px;
+    right: 14px;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header .nots-number {
+    color: white;
+    font-size: 12px;
+}
+
+header .button {
+    /* Add specific styles for .button within header, similar to the original .button styles */
+    padding: 20px 13px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+header .menu-container {
+    width: 154px;
+}
+header a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header a:active,
+header a:focus,
+header a:hover {
+    outline: none;
+}
+</style>

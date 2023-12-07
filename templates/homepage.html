@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="../static/css/homepage.css">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&display=swap" rel="stylesheet">
     <title>Home</title>
 </head>
 
@@ -20,7 +23,7 @@
     <div id="notification-list">
         <ul>
             {% if not notifications %}
-            There are no notifications at this time
+            <div class="no-notifications-text">There are no notifications at this time</div>
             {% endif %}
             {% for notification in notifications %}
                 <li>{{ notification.message }} <br> <b>{{ notification.created_at|date:"d.m.Y H:i" }}</b></li>
@@ -88,8 +91,8 @@
                         </div>
 
                         <div class="input-container-date" class="input-text">
-                            <div class="text_box">Period of tracking</div>
-                            {{ form.date_of_rent }} – {{ form.due_date }} {{ form.due_date.errors.as_ul }}
+                            <div class="text_box">Start tracking from</div>
+                            <div >{{ form.date_of_rent }}</div>
                             <div class="text_box">The limit</div>
                             {{ form.the_limit }}
                             {{ form.currency }}

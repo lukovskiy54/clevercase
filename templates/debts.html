@@ -11,23 +11,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-        {% include 'menu.html' %}
-        <div class="header-text">
-            <img src="../static/img/home/vector-1.svg" alt="Clevercase Logo" style="vertical-align: middle;">
-            Clevercase
-        </div>
-        <div>
-            <div>
-                <button class="button">
-                    <img src="../static/img/home/notifications.svg" alt="Bell Icon" style="vertical-align: middle;">
-                </button>
-                <button id="hpProfileButton" class="button">
-                    <img src="../static/img/home/profile.svg" alt="Search Icon" style="vertical-align: middle;">
-                </button>
-            </div>
-        </div>
-    </header>
+
+    {% include 'header.html' %}
+    <div id="notification-list">
+        <ul>
+            {% if not notifications %}
+            There are no notifications at this time
+            {% endif %}
+            {% for notification in notifications %}
+                <li>{{ notification.message }} <br> <b>{{ notification.created_at|date:"d.m.Y H:i" }}</b></li>
+            {% endfor %}
+        </ul>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="clear_nots">
+            <button type="submit" class="button">Clean notifications</button>
+        </form>
+    </div>
+
     <main>
         <section id="my-debts">
             <div class="add_debt">
@@ -143,7 +144,7 @@
         <div id="rofl"></div>
         <section id="others-debts">
             <div class="add_debt">
-                <span>Other`s debts</span>
+                <span>Other's debts</span>
                 <button id="others-debts-add-debt-button" class="button_debt" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" >
                       <path fill-rule="evenodd" clip-rule="evenodd" d="M38.171 7.08355C46.4091 16.0145 45.8476 29.9328 36.9167 38.171C27.9858 46.4091 14.0675 45.8476 5.82927 36.9167C-2.40892 27.9858 -1.84736 14.0675 7.08355 5.82927C16.0145 -2.40892 29.9328 -1.84736 38.171 7.08355ZM7.58284 22.011C7.58284 21.1826 8.25441 20.511 9.08284 20.511H20.7834V8.8116C20.7834 7.98317 21.455 7.3116 22.2834 7.3116C23.1119 7.3116 23.7834 7.98317 23.7834 8.8116V20.511H35.4828C36.3113 20.511 36.9828 21.1826 36.9828 22.011C36.9828 22.8394 36.3113 23.511 35.4828 23.511H23.7834V35.2116C23.7834 36.04 23.1119 36.7116 22.2834 36.7116C21.455 36.7116 20.7834 36.04 20.7834 35.2116V23.511H9.08284C8.25441 23.511 7.58284 22.8394 7.58284 22.011Z" fill="#054E2B"/>
@@ -252,5 +253,6 @@
         </section>
     </main>
     <script src="../static/scripts/debts.js"></script>
+    <script src="../static/scripts/notifications.js"></script>
 </body>
 </html>

@@ -12,15 +12,14 @@ class CategoryCreateForm(forms.ModelForm):
     is_expended = forms.BooleanField(widget=forms.HiddenInput(),required=False)
     class Meta:
         model = Category
-        fields = ['cat_name', 'the_limit', 'currently_spent', 'date_of_rent', 'due_date','currency', 'color_save','is_expended']
+        fields = ['cat_name', 'the_limit', 'currently_spent', 'date_of_rent', 'currency', 'color_save','is_expended']
         widgets = {
-            'cat_name': forms.TextInput(attrs={'placeholder': 'Enter category name', 'class': 'input-text'}),
-            'the_limit': forms.NumberInput(attrs={'placeholder': '0', 'class':'input-text', 'type':"text", 'id':"limit"}),
+            'cat_name': forms.TextInput(attrs={'placeholder': 'Enter category name', 'class': 'input-text','style':'width:87.1%; margin-bottom:0;'}),
+            'the_limit': forms.NumberInput(attrs={'placeholder': '0', 'class':'input-text', 'type':"text", 'id':"limit", 'style':'margin-top:10px;'}),
             'currently_spent': forms.NumberInput(attrs={'placeholder': '0', 'class':"input-text", 'type':"text", 'id':"spent"}),
-            'date_of_rent': forms.DateInput(attrs={'type': 'date','id':'start-date', 'class': 'input-text'}),
-            'due_date': forms.DateInput(attrs={'type': 'date','id':'end-date', 'class': 'input-text'}),
+            'date_of_rent': forms.DateInput(attrs={'type': 'date','id':'start-date','style':'width:87.1%;margin-top:20px;', 'class': 'input-text'}),
             'currency': forms.Select(choices=CURRENCIES, attrs={'class': 'custom-dropdown', 'id':'currency'}),
-            'color_save': forms.TextInput(attrs={'type':"color", 'id':"bg-color", 'style':"width: 100px; height: 50px; margin-top: 10px"})
+            'color_save': forms.TextInput(attrs={'type':"color", 'id':"bg-color", 'style':"width: 100px; height: 50px;margin-left:53px; margin-top: 10px"})
         }
 
     def clean_the_limit(self):
@@ -44,15 +43,6 @@ class CategoryCreateForm(forms.ModelForm):
         if not self.is_editing:  
             if data < datetime.date.today():
                 raise ValidationError('Invalid date - impossible to create until today')
-        return data
-
-    def clean_due_date(self):
-        data = self.cleaned_data['due_date']
-        if not self.is_editing:  
-            if data < datetime.date.today():
-                raise ValidationError('Invalid date - impossible to set due today')
-        if data < self.cleaned_data['date_of_rent']:
-                raise ValidationError('Invalid date - impossible to set due today')
         return data
 
     def __init__(self, *args, **kwargs):
