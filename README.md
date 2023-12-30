@@ -1,0 +1,8 @@
+![image](https://github.com/lukovskiy54/clevercase/assets/88405806/72e7df9f-7834-483c-814e-a980b29975b3)
+![image](https://github.com/lukovskiy54/clevercase/assets/88405806/858c67ab-fb67-4d9c-a9ed-d79541c66359)
+![image](https://github.com/lukovskiy54/clevercase/assets/88405806/be233ced-6cdf-451d-bf40-478425de1983)
+![image](https://github.com/lukovskiy54/clevercase/assets/88405806/57fffcca-58db-4008-bfcf-d1522ccabd02)
+![image](https://github.com/lukovskiy54/clevercase/assets/88405806/0ba62b12-ab49-4e63-bbf1-4f5ca1de60c9)
+![image](https://github.com/lukovskiy54/clevercase/assets/88405806/2ec3bec5-d8d8-40a8-a41b-6770bb813936)
+![image](https://github.com/lukovskiy54/clevercase/assets/88405806/50ad7cdd-336f-4ec3-9205-6277fda110b8)
+![image](https://github.com/lukovskiy54/clevercase/assets/88405806/b9c318bb-7673-4b1a-b4e4-53c47c4eb315)
